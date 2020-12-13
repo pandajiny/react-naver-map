@@ -6,6 +6,9 @@ declare namespace naver.maps {
       mapDiv: string | HTMLElement,
       mapOptions?: naver.maps.MapOptions
     );
+
+    setCenter(center: Coord);
+    setZoom(zoom: number, effect?: boolean);
   }
 
   interface MapOptions {
@@ -118,6 +121,58 @@ declare namespace naver.maps {
     // 빈 타일 이미지 URL을 설정할 수 있는 옵션입니다. 기본값은 투명 gif 입니다.
   }
 
+  class KVO {}
+
+  class OverlayView extends KVO {}
+
+  class Marker extends OverlayView {
+    constructor(options: MarkerOptions);
+  }
+
+  interface MarkerOptions {
+    map: Map;
+    position: Coord;
+    title?: string;
+
+    //     animation	naver.maps.Animation	<optional>
+    // 마커가 지도에 추가될 때 시작할 애니메이션입니다.
+
+    // map	naver.maps.Map
+    // 마커를 표시할 Map 객체입니다.
+
+    // position	Coord | CoordLiteral
+    // 마커의 위치를 나타내는 지도 좌표입니다.
+
+    icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
+    // 마커의 모양입니다. 이 속성을 설정하지 않으면 기본 아이콘으로 설정합니다. 문자열로 입력할 때는 마커의 아이콘으로 사용할 이미지의 URL을 입력합니다.
+
+    // shape	MarkerShape	<optional>
+    // 마커의 인터랙션 영역입니다.
+
+    // title	string	<optional>
+    // null
+    // 마커에 마우스 오버 시 나타나는 툴팁 문자열입니다. 이 속성을 설정하지 않거나 빈 문자열로 설정하면 툴팁을 노출하지 않습니다.
+
+    // cursor	string	<optional>
+    // pointer
+    // 마커에 마우스 오버 시 나타나는 포인터 모양입니다.
+
+    // clickable	boolean	<optional>
+    // true
+    // 마커의 클릭 허용 여부입니다. 이 값이 false이면 마커는 사용자 인터랙션을 받지 않습니다. 또한 cursor 속성값도 반영되지 않습니다.
+
+    // draggable	boolean	<optional>
+    // false
+    // 마커의 드래그 허용 여부입니다. 이 속성은 clickable 속성보다 우선합니다. 즉, clickable 속성이 false라도 이 값이 true이면 클릭 등의 사용자 인터랙션을 받습니다.
+
+    // visible	boolean	<optional>
+    // true
+    // 마커의 노출 허용 여부입니다.
+
+    // zIndex	number	<optional>
+    // 마커의 쌓임 순서입니다.
+  }
+
   //   defualt  : 0
   class Point {
     constructor(x?: number, y?: number);
@@ -125,7 +180,12 @@ declare namespace naver.maps {
 
   //   defualt  : 0
   class LatLng {
-    constructor(lat?: number, lng?: number);
+    constructor(lat: number, lng: number);
+  }
+
+  class InfoWindow {
+    constructor(options: InfoWindowOptions) {}
+    open(map: naver.maps.Map, anchor: Coord | naver.maps.Marker): void {}
   }
 }
 
